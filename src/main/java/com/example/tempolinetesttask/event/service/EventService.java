@@ -1,6 +1,7 @@
 package com.example.tempolinetesttask.event.service;
 
 import com.example.tempolinetesttask.event.domain.Event;
+import com.example.tempolinetesttask.event.domain.EventType;
 import com.example.tempolinetesttask.event.dto.EventCreateOrUpdateRequest;
 import com.example.tempolinetesttask.event.dto.EventResponse;
 import com.example.tempolinetesttask.event.repository.EventRepository;
@@ -18,8 +19,10 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public Page<EventResponse> getPage(Pageable pageable) {
-        Page<Event> eventsPage = repository.findAll(pageable);
+    public Page<EventResponse> getPage(Pageable pageable, EventType type) {
+        Page<Event> eventsPage = type == null ?
+                repository.findAllByOrderByDateTimeDesc(pageable) :
+                repository.findEventsByEventTypeEqualsOrderByDateTimeDesc(pageable, type);
         return eventsPage.map(this::convertToDto);
     }
 

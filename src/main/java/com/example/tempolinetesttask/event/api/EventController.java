@@ -1,6 +1,7 @@
 package com.example.tempolinetesttask.event.api;
 
 import com.example.tempolinetesttask.event.domain.Event;
+import com.example.tempolinetesttask.event.domain.EventType;
 import com.example.tempolinetesttask.event.dto.EventCreateOrUpdateRequest;
 import com.example.tempolinetesttask.event.dto.EventResponse;
 import com.example.tempolinetesttask.event.service.EventService;
@@ -27,7 +28,7 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<EventResponse>> getPage(@ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(service.getPage(pageable));
+    public ResponseEntity<Page<EventResponse>> getPage(@ParameterObject Pageable pageable, @RequestParam(required = false) EventType type) {
+        return ResponseEntity.ok(service.getPage(pageable, type));
     }
 }

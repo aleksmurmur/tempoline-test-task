@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class Event {
+    //TODO сделать общий id в MappedSuperclass
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
